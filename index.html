@@ -50,17 +50,12 @@
                     </ul>
                     <div class=" align-self-end">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>                                
-                            </li>
-                            <li class="nav-item">
-                                <span class="badge rounded-pill bg-black text-light position-absolute ms-4 mt-0" title="5 produto(s) no carrinho">
-                                    <small>5</small>
-                                </span>
-                                <a href="/carrinho.html" class="nav-link text-black">
-                                    <i class="bi-cart" style="font-size: 24px; line-height: 24px;"></i>
-                                </a>
-                            </li>
+                            <div id="user_login">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>                                
+                                </li>
+                            </div>
+                            
                         </ul>
                     </div>
                 </div>
@@ -381,17 +376,17 @@
                 </div>
             </div>
         </div>
-
+        <button id="listar">Teste</button>
     </div>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
     <script>
-        // Initialize Parse
-          Parse.initialize("FJjT5vkunDHNfhBfdl78cLJExpr3Dm2DJqxybFeO", "GLwL83aKbBUuFp8Cy0DxjgpXy1uq71IUOi9XGkan"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-          Parse.serverURL = "https://parseapi.back4app.com/";
-    </script>
-    <script>
+
+         // Initialize Parse
+        Parse.initialize("FJjT5vkunDHNfhBfdl78cLJExpr3Dm2DJqxybFeO", "GLwL83aKbBUuFp8Cy0DxjgpXy1uq71IUOi9XGkan"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+        Parse.serverURL = "https://parseapi.back4app.com/";
+
         let element_txtEmail = $("#txtEmail");
         let element_txtSenha = $("#txtSenha");
         let element_btnLogar = $("#btnLogar");
@@ -400,42 +395,112 @@
             let email = element_txtEmail.val();
             let senha = element_txtSenha.val();
 
-
+            logar(email,senha);
 
         });
 
-        function read() {
-            (async () => {
-                const Cliente = Parse.Object.extend('Cliente');
-                const query = new Parse.Query(Cliente);
-                // You can also query by using a parameter of an object
-                // query.equalTo('objectId', 'xKue915KBG');
-                try {
-                    const results = await query.find();
-                    for (const object of results) {
-                    // Access the Parse Object attributes using the .GET method
-                    const email = object.get('email')
-                    const nome = object.get('nome')
-                    const senha = object.get('senha')
-                    const cpf = object.get('cpf')
-                    const telefone = object.get('telefone')
-                    const data_nasc = object.get('data_nasc')
-                    console.log(email);
-                    console.log(nome);
-                    console.log(senha);
-                    console.log(cpf);
-                    console.log(telefone);
-                    console.log(data_nasc);
-                    }
-                } catch (error) {
-                    console.error('Error while fetching Cliente', error);
-                }
-                })();
+        function verificarUserLogado( jQuery ) {
+            const userLogado = localStorage.getItem('userLogado')
+            if(userLogado){
+                let cliente = JSON.parse(userLogado);
+                console.log(cliente);
+                $("#user_login").html(
+                `
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-black">${cliente.nome}</a>                                
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Sair</a>                                
+                </li>
+                </ul>
+                <li class="nav-item">
+                    <span class="badge rounded-pill bg-black text-light position-absolute ms-4 mt-0" title="5 produto(s) no carrinho">
+                                    <small>5</small>
+                    </span>
+                    <a href="/carrinho.html" class="nav-link text-black">
+                                    <i class="bi-cart" style="font-size: 24px; line-height: 24px;"></i>
+                    </a>
+                </li>
+                </div>
+                
+                `
+            );
+            }
+           
+        }
+        
+        $( document ).ready( verificarUserLogado );
 
+        
+
+        async function listar(filtro = ""){
+            const Cliente = Parse.Object.extend('Cliente');
+            const query = new Parse.Query(Cliente);
+            query.contains("nome",filtro);
+            // You can also query by using a parameter of an object
+            // query.equalTo('objectId', 'xKue915KBG');
+            try {
+                const listaDeClientes = await query.find();
+                for (const cliente of listaDeClientes) {
+                // Access the Parse Object attributes using the .GET method
+                const email = cliente.get('email')
+                const nome = cliente.get('nome')
+                const senha = cliente.get('senha')
+                const cpf = cliente.get('cpf')
+                const telefone = cliente.get('telefone')
+                const data_nasc = cliente.get('data_nasc')
+
+                console.log(email);
+                console.log(nome);
+                console.log(senha);
+                console.log(cpf);
+                console.log(telefone);
+                console.log(data_nasc);
+                }
+            } catch (error) {
+                console.error('Error while fetching Cliente', error);
+            }
         }
 
-        $("#listar").click(()=>{read()})
-
+        
+        async function logar(email, senha){
+            const Cliente = Parse.Object.extend('Cliente');
+            const query = new Parse.Query(Cliente);
+            query.equalTo("email",email);
+            // You can also query by using a parameter of an object
+            // query.equalTo('objectId', 'xKue915KBG');
+            try {
+                const result = (await query.find())[0];
+                if(result){
+                    let cliente = {
+                        email:result.get('email'),
+                        nome:result.get('nome'),
+                        senha:result.get('senha'),
+                        cpf:result.get('cpf'),
+                        telefone:result.get('telefone'),
+                        data_nasc:result.get('data_nasc')
+                    }                    
+                    if(cliente.senha == senha){
+                        alert("Logado com sucesso!!!!");
+                        localStorage.setItem('userLogado', JSON.stringify(cliente));
+                        location.reload();
+                    }
+                    else{
+                        localStorage.removeItem('userLogado');
+                        alert("Senha incorreta!!");
+                    }
+                }
+                else{
+                    ocalStorage.removeItem('userLogado');
+                    alert("Usuário não encontrado");
+                }
+                
+            } catch (error) {
+                console.error('Error while fetching Cliente', error);
+            }
+        }
 
         async function createParseUser() {
             let user = new Parse.User();
