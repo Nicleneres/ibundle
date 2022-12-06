@@ -5,3 +5,8 @@ body {
 .wrapper {
     min-height: 100vh;
 }
+
+.titleStyle {
+    font-family: 'Droid', serif;
+        font-size: 48px;
+}

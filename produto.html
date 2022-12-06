@@ -51,10 +51,7 @@
                     <div class=" align-self-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="/cadastro.html" class="nav-link text-black">Quero Me Cadastrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/login.html" class="nav-link text-black">Entrar</a>
+                                <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>                                
                             </li>
                             <li class="nav-item">
                                 <span class="badge rounded-pill bg-black text-light position-absolute ms-4 mt-0" title="5 produto(s) no carrinho">
@@ -73,31 +70,29 @@
             <div class="container">
                 <div class="row g-3">
                     <div class="col-12 col-sm-6">
-                        <img src="/img/produtos/000001.jpg" class="img-thumbnail" id="imgProduto">
+                        <img src="/img/produtos/1.png" class="img-thumbnail" id="imgProduto">
                         <br class="clearfix">
                         <div class="row my-3 gx-3">
                             <div class="col-3">
-                                <img src="/img/produtos/000001.jpg" id="img1" class="img-thumbnail" onclick="trocarImagem(this)">
+                                <img src="/img/produtos/2.png" id="img1" class="img-thumbnail" onclick="trocarImagem(this)">
                             </div>
                             <div class="col-3">
-                                <img src="/img/produtos/000002.jpg" id="img2" class="img-thumbnail" onclick="trocarImagem(this)">
+                                <img src="/img/produtos/3.png" id="img2" class="img-thumbnail" onclick="trocarImagem(this)">
                             </div>
                             <div class="col-3">
-                                <img src="/img/produtos/000003.png" id="img3" class="img-thumbnail" onclick="trocarImagem(this)">
+                                <img src="/img/produtos/4.png" id="img3" class="img-thumbnail" onclick="trocarImagem(this)">
                             </div>
                             <div class="col-3">
-                                <img src="/img/produtos/000004.png" id="img4" class="img-thumbnail" onclick="trocarImagem(this)">
+                                <img src="/img/produtos/5.png" id="img4" class="img-thumbnail" onclick="trocarImagem(this)">
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
-                        <h1 style="font-size: 50pt;" id="txtnome"> Maria Petit 
-                            <br>
-                            Atelier De Doces
+                        <h1 style="font-size: 50pt;" id="txtnome"> NOME DA EMPPRESA
                          </h1>
             
                         <p style="font-size: 25pt;" id="txtdescricao">
-                            Os melhores doces da região, doces com o melhor sabor e preço.
+                            Qualidade, preço baixo, frete grátis e uma otima pedida
                         </p>
                     <!-- </div>
                         <h1>Carrinho de Compras</h1>
@@ -184,17 +179,17 @@
             var imgProduto = document.getElementById("imgProduto");
             imgProduto.src = el.src;
             if(el.id == 'img2'){
-                document.getElementById('txtnome').innerHTML = 'Salgados da Elezena'
-                document.getElementById('txtdescricao').innerHTML = 'Um salgado delicioso que mata a sua fome'
+                document.getElementById('txtnome').innerHTML = 'NOME DA EMPRESA'
+                document.getElementById('txtdescricao').innerHTML = 'Garantia de qualidade no alimento que irá satisfazer a sua fome!'
             }else if(el.id == 'img3'){
-                document.getElementById('txtnome').innerHTML = 'Doce Mais Arte'
-                document.getElementById('txtdescricao').innerHTML = 'Doces com a melhor qualidade e preço'
+                document.getElementById('txtnome').innerHTML = 'NOME DA EMPRESA'
+                document.getElementById('txtdescricao').innerHTML = 'Garantia de qualidade no alimento que irá satisfazer a sua fome!'
             }else if(el.id == 'img4'){
-                document.getElementById('txtnome').innerHTML = 'Burguers Delicious'
-                document.getElementById('txtdescricao').innerHTML = 'Pediu um lanche que cabe no seu bolso e mata a sua fome'
+                document.getElementById('txtnome').innerHTML = 'NOME DA EMPRESA'
+                document.getElementById('txtdescricao').innerHTML = 'Garantia de qualidade no alimento que irá satisfazer a sua fome!'
             }else{
-                document.getElementById('txtnome').innerHTML = 'Maria Petit Atelier De Doces'
-                document.getElementById('txtdescricao').innerHTML = 'Os melhores doces da região, doces com o melhor sabor e preço.'
+                document.getElementById('txtnome').innerHTML = 'NOME DA EMPRESA'
+                document.getElementById('txtdescricao').innerHTML = 'Garantia de qualidade no alimento que irá satisfazer a sua fome!'
             }
             
         }
