@@ -76,7 +76,7 @@
                             <fieldset class="row gx-3">
                                 <legend>Dados Pessoais</legend>
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" id="txtNome" placeholder=" " autofocus />
+                                    <input class="form-control" type="text" id="txtNome" placeholder=" " autofocus required/>
                                     <label for="txtNome">Nome</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-xl-4">
@@ -84,7 +84,7 @@
                                     <label for="txtCPF">CPF</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6 col-xl-4">
-                                    <input class="form-control" type="date" id="txtDataNascimento" placeholder=" " />
+                                    <input class="form-control" type="date" id="txtDataNascimento" placeholder=" " required/>
                                     <label for="txtDataNascimento" class="d-inline d-sm-none d-md-inline d-lg-none">Data
                                         Nascimento</label>
                                     <label for="txtDataNascimento" class="d-none d-sm-inline d-md-none d-lg-inline">Data
@@ -94,11 +94,11 @@
                             <fieldset>
                                 <legend>Contatos</legend>
                                 <div class="form-floating mb-3 col-md-8">
-                                    <input class="form-control" type="email" id="txtEmail" placeholder=" " />
+                                    <input class="form-control" type="email" id="txtEmail" placeholder=" " required/>
                                     <label for="txtEmail">E-mail</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-6">
-                                    <input class="form-control" placeholder=" " type="text" id="txtTelefone" />
+                                    <input class="form-control" placeholder=" " type="text" id="txtTelefone" required/>
                                     <label for="txtTelefone">Telefone</label>
                                 </div>
                             </fieldset>
@@ -107,7 +107,7 @@
                             <fieldset class="row gx-3">
                                 <legend>Endereço</legend>
                                 <div class="form-floating mb-3 col-md-6 col-lg-4">
-                                    <input class="form-control" type="text" id="txtCEP" placeholder=" " />
+                                    <input class="form-control" type="text" id="txtCEP" placeholder=" " required/>
                                     <label for="txtCEP">CEP</label>
                                 </div>
                                 <div class="mb-3 col-md-6 col-lg-8 align-self-end">
@@ -117,26 +117,26 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-floating mb-3 col-md-4">
-                                    <input class="form-control" type="text" id="txtNumero" placeholder=" " />
+                                    <input class="form-control" type="text" id="txtNumero" placeholder=" " required/>
                                     <label for="txtNumero">Número</label>
                                 </div>
                                 <div class="form-floating mb-3 col-md-8">
-                                    <input class="form-control" type="text" id="txtComplemento" placeholder=" " />
+                                    <input class="form-control" type="text" id="txtComplemento" placeholder=" " required/>
                                     <label for="txtComplemento">Complemento</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" id="txtReferencia" placeholder=" " />
+                                    <input class="form-control" type="text" id="txtReferencia" placeholder=" " required/>
                                     <label for="txtReferencia">Referência</label>
                                 </div>
                             </fieldset>
                             <fieldset class="row gx-3">
                                 <legend>Senha de Acesso</legend>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" type="password" id="txtSenha" placeholder=" " />
+                                    <input class="form-control" type="password" id="txtSenha" placeholder=" " required/>
                                     <label for="txtSenha">Senha</label>
                                 </div>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" id="txtConfirmacaoSenha" placeholder=" " />
+                                    <input class="form-control" id="txtConfirmacaoSenha" placeholder=" " required/>
                                     <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
                                 </div>
                             </fieldset>
@@ -151,8 +151,7 @@
                     </div>
                     <div class="mb-3 text-left">
                         <a class="btn btn-lg btn-light btn-outline-dark" href="/">Cancelar</a>
-                        <input type="button" value="Criar meu cadastro" class="btn btn-lg btn-warning"
-                            onclick="window.location.href='/confirmarcadastro.html'" />
+                        <input type="button" id="btnCadastrar" value="Criar meu cadastro" class="btn btn-lg btn-warning" onclick="return validarSenha()"/>
                     </div>
                 </form>
             </div>
@@ -265,30 +264,35 @@
                   Parse.serverURL = "https://parseapi.back4app.com/";
             </script>
             <script>
-                let element_txtEmail = $("#txtEmail");
-                let element_txtSenha = $("#txtSenha");
-                let element_btnLogar = $("#btnLogar");
+    
+                let btnCadastrar = document.getElementById('btnCadastrar')
+
         
-                element_btnLogar.click(()=>{
-                    let email = element_txtEmail.val();
-                    let senha = element_txtSenha.val();
-        
-        
-        
-                });
-        
-                function read() {
-                    query = new Parse.Query(Pet);
-                    query.equalTo("name", textName);
-                    query.first().then(function(pet){
-                        if(pet){
-                        console.log('Pet found successful with name: ' + pet.get("name") + ' and age: ' + pet.get("agePet"));
-                        } else {
-                        console.log("Nothing found, please try again");
-                        }
-                    }).catch(function(error){
-                        console.log("Error: " + error.code + " " + error.message);       
-                    });
+                // function read() {
+                //     query = new Parse.Query(Pet);
+                //     query.equalTo("name", textName);
+                //     query.first().then(function(pet){
+                //         if(pet){
+                //         console.log('Pet found successful with name: ' + pet.get("name") + ' and age: ' + pet.get("agePet"));
+                //         } else {
+                //         console.log("Nothing found, please try again");
+                //         }
+                //     }).catch(function(error){
+                //         console.log("Error: " + error.code + " " + error.message);       
+                //     });
+                // }
+
+                function validarSenha() {
+                    senha = document.getElementById('txtSenha').value;
+                    senhaC = document.getElementById('txtConfirmacaoSenha').value;
+
+                    if (senha != senhaC) {
+                        alert("Senhas diferentes!")
+                        
+                        return false;
+                    } else {
+                      return true;
+                    }
                 }
         
         

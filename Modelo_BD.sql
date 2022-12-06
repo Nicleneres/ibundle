@@ -23,7 +23,7 @@ CREATE TABLE Produtos (
 CREATE TABLE Cliente (
     id INT PRIMARY KEY,
     cpf varchar(20),
-    email varchar(100),
+    email varchar(100) UNIQUE,
     senha varchar(200),
     nome varchar(200),
     status INT
