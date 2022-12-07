@@ -136,7 +136,7 @@
                                     <label for="txtSenha">Senha</label>
                                 </div>
                                 <div class="form-floating mb-3 col-lg-6">
-                                    <input class="form-control" id="txtConfirmacaoSenha" placeholder=" " required/>
+                                    <input class="form-control" type="password" id="txtConfirmacaoSenha" placeholder=" " required/>
                                     <label class="form-label" for="txtConfirmacaoSenha">Confirmação da Senha</label>
                                 </div>
                             </fieldset>
@@ -317,6 +317,8 @@
                         // Access the Parse Object attributes using the .GET method
                         console.log('Cliente created', result);
                         alert('Cliente cadastrado com sucesso!!!')
+                        localStorage.setItem('userLogado', JSON.stringify(objCliente));
+                        location.href = 'index.html'
                     } catch (error) {
                         console.error('Error while creating Cliente: ', error);
                     }
