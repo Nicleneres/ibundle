@@ -50,9 +50,11 @@
                     </ul>
                     <div class=" align-self-end">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>                                
-                            </li>
+                            <div id="user_login">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Entrar</a>                                
+                                </li>
+                            </div>
                             <li class="nav-item">
                                 <span class="badge rounded-pill bg-black text-light position-absolute ms-4 mt-0" title="5 produto(s) no carrinho">
                                     <small>5</small>
@@ -228,7 +230,39 @@
                         console.log("Error: " + error.code + " " + error.message);       
                     });
                 }
-        
+                function verificarUserLogado( jQuery ) {
+                    const userLogado = localStorage.getItem('userLogado')
+                    if(userLogado){
+                        let cliente = JSON.parse(userLogado);
+                        console.log(cliente);
+                        $("#user_login").html(
+                        `
+                        <div class="collapse navbar-collapse">
+                            <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a href="cliente.html" class="nav-link text-black">${cliente.nome}</a>                                
+                        </li>
+                        <li class="nav-item">
+                            <form>
+                                <a href="#" class="nav-link text-black" onclick="sair()">Sair</a>
+                            </form>
+                        </li>
+                        </ul>
+                        <li class="nav-item">
+                            <span class="badge rounded-pill bg-black text-light position-absolute ms-4 mt-0" title="5 produto(s) no carrinho">
+                                            <small>5</small>
+                            </span>
+                            <a href="/carrinho.html" class="nav-link text-black">
+                                            <i class="bi-cart" style="font-size: 24px; line-height: 24px;"></i>
+                            </a>
+                        </li>
+                        </div>
+                        
+                        `
+                    );
+                    }
+                
+                }
         
         
                 // async function createParseUser() {

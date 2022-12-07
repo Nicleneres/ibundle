@@ -416,7 +416,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-black">${cliente.nome}</a>                                
+                    <a href="cliente.html" class="nav-link text-black">${cliente.nome}</a>                                
                 </li>
                 <li class="nav-item">
                     <form>
@@ -497,6 +497,8 @@
                     }
                     else{
                         localStorage.removeItem('userLogado');
+                        element_txtSenha.val('')
+                        document.getElementById('txtSenha').style.boxShadow = '0px 0px 3px 3px red'
                         alert("Senha incorreta!!");
                     }
                 }
