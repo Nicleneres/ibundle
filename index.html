@@ -398,6 +398,14 @@
             logar(email,senha);
 
         });
+        $("#txtSenha").on('keypress',function(e) {
+            if(e.which == 13) {
+                let email = element_txtEmail.val();
+                let senha = element_txtSenha.val();
+
+                logar(email,senha);
+            }
+        })
         function verificarUserLogado( jQuery ) {
             const userLogado = localStorage.getItem('userLogado')
             if(userLogado){
@@ -411,7 +419,9 @@
                     <a href="#" class="nav-link text-black">${cliente.nome}</a>                                
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-black" data-bs-toggle="modal" data-bs-target="#modalLogin">Sair</a>                       
+                    <form>
+                        <a href="#" class="nav-link text-black" onclick="sair()">Sair</a>
+                    </form>
                 </li>
                 </ul>
                 <li class="nav-item">
@@ -482,7 +492,6 @@
                         data_nasc:result.get('data_nasc')
                     }                    
                     if(cliente.senha == senha){
-                        alert("Logado com sucesso!!!!");
                         localStorage.setItem('userLogado', JSON.stringify(cliente));
                         location.reload();
                     }
@@ -492,13 +501,18 @@
                     }
                 }
                 else{
-                    ocalStorage.removeItem('userLogado');
+                    localStorage.removeItem('userLogado');
                     alert("Usuário não encontrado");
                 }
                 
             } catch (error) {
                 console.error('Error while fetching Cliente', error);
             }
+        }
+
+        function sair(){
+            localStorage.removeItem('userLogado');
+            location.reload();
         }
 
         async function createParseUser() {
